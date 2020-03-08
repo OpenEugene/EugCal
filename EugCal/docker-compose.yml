@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  eugcal:
+    image: ${DOCKER_REGISTRY-}eugcal
+    build:
+      context: .
+      dockerfile: Dockerfile
