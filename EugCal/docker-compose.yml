@@ -1,7 +1,21 @@
 version: '3.4'
 
 services:
+  sqlserverService:  
+    image: microsoft/mssql-server-linux:latest  
+    hostname: 'sqlserver'  
+    environment:  
+      ACCEPT_EULA: Y  
+      SA_PASSWORD: "BigPassw0rd"  
+    volumes:  
+      - ./data/mssql:/var/opt/mssql3  
+    ports:  
+      - '1433:1433'  
+    expose:  
+      - 1433  
   eugcal:
+    links:  
+      - sqlserverService  
     image: ${DOCKER_REGISTRY-}eugcal
     build:
       context: .
