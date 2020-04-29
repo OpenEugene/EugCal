@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eug-cal-deployment
+  namespace: eug-cal-prod
+  labels:
+    app: eug-cal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eug-cal
+  template:
+    metadata:
+      labels:
+        app: eug-cal
+    spec:
+      containers:
+        - name: web-server
+          image: codegold79/eug-cal:1.0.0
+          resources:
+            limits:
+              cpu: 0.25
+              memory: 250Mi
+            requests:
+              cpu: 0.25
+              memory: 250Mi
+          ports:
+            - containerPort: 8080
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
